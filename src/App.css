@@ -4,6 +4,19 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Reddit Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-transform: uppercase;
+}
+
+* {
+  text-transform: inherit;
+}
+
 .app {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
@@ -45,7 +58,7 @@
   max-width: 600px;
   width: 100%;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .header {
@@ -165,12 +178,16 @@
   margin-bottom: 10px;
   font-weight: bold;
   letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Reddit Sans', sans-serif;
 }
 
 .subtitle {
   font-size: 18px;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+  font-family: 'Reddit Sans', sans-serif;
 }
 
 .links-container {
@@ -190,8 +207,8 @@
   gap: 20px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  animation: slideInLeft 0.6s ease-out;
-  animation-delay: var(--delay);
+  animation: slideInLeft 0.6s ease-out, buttonPulse 3s ease-in-out infinite, buttonFloat 4s ease-in-out infinite, buttonGlow 5s ease-in-out infinite;
+  animation-delay: var(--delay), calc(var(--delay) + 1s), calc(var(--delay) + 0.5s), calc(var(--delay) + 2s);
   animation-fill-mode: both;
   position: relative;
   overflow: hidden;
@@ -227,14 +244,81 @@
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
   border-left: 5px solid var(--card-color);
+  animation: slideInLeft 0.6s ease-out, buttonPulseHover 1.5s ease-in-out infinite, buttonFloatHover 2s ease-in-out infinite, buttonGlowHover 3s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@keyframes buttonPulseHover {
+  0%, 100% {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@keyframes buttonFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes buttonGlow {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+  25% {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+  75% {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes buttonFloatHover {
+  0%, 100% {
+    transform: translateY(-5px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@keyframes buttonGlowHover {
+  0%, 100% {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  }
+  25% {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  }
+  75% {
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 255, 255, 0.6);
+  }
 }
 
 .link-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
 }
 
@@ -247,9 +331,93 @@
 .link-icon-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  animation: wiggle 2s ease-in-out infinite;
-  animation-delay: var(--delay);
+  object-fit: cover;
+  border-radius: 100%;
+  border: 3px solid var(--card-color);
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.2),
+    0 2px 5px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  animation: wiggle 2s ease-in-out infinite, iconFloat 3s ease-in-out infinite;
+  animation-delay: var(--delay), calc(var(--delay) + 0.5s);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.link-icon-image.flip-90 {
+  animation: wiggleFlip 2s ease-in-out infinite, iconFloatFlip 3s ease-in-out infinite;
+  animation-delay: var(--delay), calc(var(--delay) + 0.5s);
+}
+
+.link-card:hover .link-icon-image {
+  animation: wiggleHover 1s ease-in-out infinite, iconFloatHover 1.5s ease-in-out infinite;
+  transform: scale(1.15);
+  border-width: 4px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.link-card:hover .link-icon-image.flip-90 {
+  animation: wiggleHoverFlip 1s ease-in-out infinite, iconFloatHoverFlip 1.5s ease-in-out infinite;
+  transform: scale(1.15) scaleX(-1);
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes iconFloatFlip {
+  0%, 100% {
+    transform: scaleX(-1) translateY(0);
+  }
+  50% {
+    transform: scaleX(-1) translateY(-5px);
+  }
+}
+
+@keyframes iconFloatHover {
+  0%, 100% {
+    transform: translateY(0) scale(1.15);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.2);
+  }
+}
+
+@keyframes iconFloatHoverFlip {
+  0%, 100% {
+    transform: scaleX(-1) translateY(0) scale(1.15);
+  }
+  50% {
+    transform: scaleX(-1) translateY(-8px) scale(1.2);
+  }
+}
+
+@keyframes wiggleHover {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes wiggleHoverFlip {
+  0%, 100% {
+    transform: scaleX(-1) rotate(0deg);
+  }
+  25% {
+    transform: scaleX(-1) rotate(15deg);
+  }
+  75% {
+    transform: scaleX(-1) rotate(-15deg);
+  }
 }
 
 @keyframes wiggle {
@@ -264,22 +432,432 @@
   }
 }
 
+@keyframes wiggleFlip {
+  0%, 100% {
+    transform: scaleX(-1) rotate(0deg);
+  }
+  25% {
+    transform: scaleX(-1) rotate(10deg);
+  }
+  75% {
+    transform: scaleX(-1) rotate(-10deg);
+  }
+}
+
 .link-title {
   flex: 1;
   font-size: 24px;
   font-weight: 600;
   color: #333;
   letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Reddit Sans', sans-serif;
 }
 
 .link-arrow {
   font-size: 30px;
   color: var(--card-color);
   transition: transform 0.3s ease;
+  animation: arrowBounce 2s ease-in-out infinite;
+  animation-delay: var(--delay);
 }
 
 .link-card:hover .link-arrow {
   transform: translateX(10px);
+  animation: arrowBounceHover 0.8s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes arrowBounceHover {
+  0%, 100% {
+    transform: translateX(10px);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+}
+
+/* Hiệu ứng pháo hoa */
+.fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 20px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: fireworkRise 2s ease-out infinite;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 -5px 10px rgba(255, 255, 255, 0.5);
+}
+
+.firework::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  top: -100%;
+  left: 0;
+  background: linear-gradient(to top, transparent, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  animation: fireworkTrail 2s ease-out infinite;
+}
+
+.firework-1 {
+  top: 20%;
+  left: 20%;
+  animation-delay: 0s;
+  animation-duration: 2.5s;
+  background: radial-gradient(circle, #FFD700, #FF8C00);
+}
+
+.firework-2 {
+  top: 30%;
+  right: 25%;
+  animation-delay: 0.5s;
+  animation-duration: 2.7s;
+  background: radial-gradient(circle, #FF1493, #FF69B4);
+}
+
+.firework-3 {
+  top: 50%;
+  left: 50%;
+  animation-delay: 1s;
+  animation-duration: 2.6s;
+  background: radial-gradient(circle, #00BFFF, #1E90FF);
+}
+
+.firework-4 {
+  bottom: 30%;
+  left: 30%;
+  animation-delay: 1.5s;
+  animation-duration: 2.4s;
+  background: radial-gradient(circle, #FF4500, #FF6347);
+}
+
+.firework-5 {
+  bottom: 25%;
+  right: 20%;
+  animation-delay: 2s;
+  animation-duration: 2.8s;
+  background: radial-gradient(circle, #8A2BE2, #9370DB);
+}
+
+@keyframes fireworkRise {
+  0% {
+    transform: translateY(100vh) translateX(0) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  48% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  49% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(1.3);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes fireworkTrail {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scaleY(0.5);
+  }
+  10% {
+    opacity: 0.8;
+  }
+  45% {
+    opacity: 0.6;
+    transform: translateY(100%) scaleY(1);
+  }
+  46% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  animation: particleFly 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: var(--delay);
+}
+
+.particle::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  filter: blur(3px);
+  opacity: 0.6;
+  animation: particleTrail 2.5s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes particleTrail {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.particle-large {
+  width: 5px;
+  height: 5px;
+}
+
+.particle-small {
+  width: 3px;
+  height: 3px;
+}
+
+.firework-1 .particle-large {
+  background: radial-gradient(circle, #FFD700, #FFA500);
+  box-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
+}
+
+.firework-1 .particle-small {
+  background: radial-gradient(circle, #FFFF00, #FFD700);
+  box-shadow: 0 0 6px #FFFF00;
+}
+
+.firework-2 .particle-large {
+  background: radial-gradient(circle, #FF1493, #FF69B4);
+  box-shadow: 0 0 8px #FF1493, 0 0 12px #FF1493;
+}
+
+.firework-2 .particle-small {
+  background: radial-gradient(circle, #FF69B4, #FFB6C1);
+  box-shadow: 0 0 6px #FF69B4;
+}
+
+.firework-3 .particle-large {
+  background: radial-gradient(circle, #00BFFF, #1E90FF);
+  box-shadow: 0 0 8px #00BFFF, 0 0 12px #00BFFF;
+}
+
+.firework-3 .particle-small {
+  background: radial-gradient(circle, #87CEEB, #00BFFF);
+  box-shadow: 0 0 6px #87CEEB;
+}
+
+.firework-4 .particle-large {
+  background: radial-gradient(circle, #FF4500, #FF6347);
+  box-shadow: 0 0 8px #FF4500, 0 0 12px #FF4500;
+}
+
+.firework-4 .particle-small {
+  background: radial-gradient(circle, #FF6347, #FFA07A);
+  box-shadow: 0 0 6px #FF6347;
+}
+
+.firework-5 .particle-large {
+  background: radial-gradient(circle, #8A2BE2, #9370DB);
+  box-shadow: 0 0 8px #8A2BE2, 0 0 12px #8A2BE2;
+}
+
+.firework-5 .particle-small {
+  background: radial-gradient(circle, #9370DB, #BA55D3);
+  box-shadow: 0 0 6px #9370DB;
+}
+
+.sparkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  animation: sparkleFly 1.5s ease-out infinite;
+  animation-delay: var(--delay);
+  background: white;
+  box-shadow: 0 0 4px white, 0 0 8px white;
+}
+
+.firework-1 .sparkle {
+  background: #FFD700;
+  box-shadow: 0 0 4px #FFD700, 0 0 8px #FFD700;
+}
+
+.firework-2 .sparkle {
+  background: #FF1493;
+  box-shadow: 0 0 4px #FF1493, 0 0 8px #FF1493;
+}
+
+.firework-3 .sparkle {
+  background: #00BFFF;
+  box-shadow: 0 0 4px #00BFFF, 0 0 8px #00BFFF;
+}
+
+.firework-4 .sparkle {
+  background: #FF4500;
+  box-shadow: 0 0 4px #FF4500, 0 0 8px #FF4500;
+}
+
+.firework-5 .sparkle {
+  background: #8A2BE2;
+  box-shadow: 0 0 4px #8A2BE2, 0 0 8px #8A2BE2;
+}
+
+@keyframes sparkleFly {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) translateX(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(120px) translateX(0) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes particleFly {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) translateX(0) scale(1);
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  30% {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+  60% {
+    opacity: 0.8;
+    filter: brightness(0.8);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(200px) translateX(0) scale(0.3);
+    opacity: 0;
+    filter: brightness(0.3);
+  }
+}
+
+/* Pháo hoa nền liên tục */
+.background-fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.bg-firework {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%);
+  animation: bgFireworkFloat 10s ease-in-out infinite;
+  opacity: 0.5;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.bg-firework-1 {
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+}
+
+.bg-firework-2 {
+  top: 25%;
+  right: 20%;
+  animation-delay: 1.5s;
+  background: radial-gradient(circle, rgba(255, 20, 147, 0.6) 0%, transparent 70%);
+}
+
+.bg-firework-3 {
+  top: 45%;
+  left: 10%;
+  animation-delay: 3s;
+  background: radial-gradient(circle, rgba(0, 191, 255, 0.6) 0%, transparent 70%);
+}
+
+.bg-firework-4 {
+  bottom: 30%;
+  right: 15%;
+  animation-delay: 4.5s;
+  background: radial-gradient(circle, rgba(255, 69, 0, 0.6) 0%, transparent 70%);
+}
+
+.bg-firework-5 {
+  top: 60%;
+  left: 50%;
+  animation-delay: 6s;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.6) 0%, transparent 70%);
+}
+
+.bg-firework-6 {
+  bottom: 20%;
+  left: 30%;
+  animation-delay: 7.5s;
+  background: radial-gradient(circle, rgba(255, 192, 203, 0.6) 0%, transparent 70%);
+}
+
+@keyframes bgFireworkFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+  25% {
+    transform: translate(30px, -40px) scale(1.3);
+    opacity: 0.6;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    transform: translate(-20px, -60px) scale(1.6);
+    opacity: 0.8;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+  }
+  75% {
+    transform: translate(-30px, -30px) scale(1.3);
+    opacity: 0.6;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  }
 }
 
 .decorations {
@@ -359,10 +937,14 @@
     font-size: 32px;
     letter-spacing: 1px;
     margin-bottom: 8px;
+    text-transform: uppercase;
+    font-family: 'Reddit Sans', sans-serif;
   }
 
   .subtitle {
     font-size: 16px;
+    text-transform: uppercase;
+    font-family: 'Reddit Sans', sans-serif;
   }
 
   .couple-images {
@@ -391,22 +973,53 @@
 
   .links-container {
     gap: 15px;
+    width: 70%;
+    margin: 0 auto;
+    align-items: center;
   }
 
   .link-card {
-    padding: 18px 20px;
-    gap: 15px;
-    border-radius: 15px;
+    padding: 18px 16px;
+    gap: 14px;
+    border-radius: 16px;
+    min-height: auto;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+      0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .link-card::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 17px;
+    background: linear-gradient(135deg, var(--card-color), rgba(255, 255, 255, 0.3));
+    opacity: 0.2;
+    z-index: -1;
+    pointer-events: none;
   }
 
   .link-title {
-    font-size: 18px;
-    letter-spacing: 0.5px;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: 'Reddit Sans', sans-serif;
   }
 
   .link-icon {
-    width: 36px;
-    height: 36px;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
   }
 
   .link-emoji {
@@ -414,7 +1027,20 @@
   }
 
   .link-arrow {
-    font-size: 24px;
+    font-size: 20px;
+  }
+
+  .link-card:hover {
+    box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.2),
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+      0 0 20px var(--card-color);
+    transform: translateY(-3px) scale(1.01);
+  }
+
+  .link-card::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
   }
 
   .flower {
@@ -430,10 +1056,14 @@
 
   .title {
     font-size: 28px;
+    text-transform: uppercase;
+    font-family: 'Reddit Sans', sans-serif;
   }
 
   .subtitle {
     font-size: 14px;
+    text-transform: uppercase;
+    font-family: 'Reddit Sans', sans-serif;
   }
 
   .couple-images {
@@ -459,17 +1089,38 @@
   }
 
   .link-card {
-    padding: 15px 18px;
-    gap: 12px;
+    padding: 10px 14px;
+    gap: 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+    box-shadow: 
+      0 3px 12px rgba(0, 0, 0, 0.15),
+      0 2px 6px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+      0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .link-card::after {
+    border-radius: 15px;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
   }
 
   .link-title {
-    font-size: 16px;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: 'Reddit Sans', sans-serif;
   }
 
   .link-icon {
-    width: 32px;
-    height: 32px;
+    width: 55px;
+    height: 55px;
   }
 
   .link-emoji {
@@ -501,6 +1152,13 @@
 
   .links-container {
     gap: 12px;
+    width: 70%;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .link-card {
+    width: 100%;
   }
 }
 

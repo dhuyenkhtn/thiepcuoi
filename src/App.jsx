@@ -77,6 +77,75 @@ function App() {
         backgroundRepeat: 'no-repeat'
       } : {}}
     >
+      {/* Hiệu ứng pháo hoa liên tục */}
+      <div className="fireworks-container">
+        <div className="firework firework-1">
+          {[...Array(30)].map((_, i) => (
+            <div key={i} className="particle particle-large" style={{ '--angle': `${i * 12}deg`, '--delay': `${i * 0.015}s` }}></div>
+          ))}
+          {[...Array(20)].map((_, i) => (
+            <div key={`small-${i}`} className="particle particle-small" style={{ '--angle': `${i * 18}deg`, '--delay': `${i * 0.02}s` }}></div>
+          ))}
+          {[...Array(8)].map((_, i) => (
+            <div key={`sparkle-${i}`} className="sparkle" style={{ '--angle': `${i * 45}deg`, '--delay': `${0.3 + i * 0.05}s` }}></div>
+          ))}
+        </div>
+        <div className="firework firework-2">
+          {[...Array(30)].map((_, i) => (
+            <div key={i} className="particle particle-large" style={{ '--angle': `${i * 12}deg`, '--delay': `${i * 0.015}s` }}></div>
+          ))}
+          {[...Array(20)].map((_, i) => (
+            <div key={`small-${i}`} className="particle particle-small" style={{ '--angle': `${i * 18}deg`, '--delay': `${i * 0.02}s` }}></div>
+          ))}
+          {[...Array(8)].map((_, i) => (
+            <div key={`sparkle-${i}`} className="sparkle" style={{ '--angle': `${i * 45}deg`, '--delay': `${0.3 + i * 0.05}s` }}></div>
+          ))}
+        </div>
+        <div className="firework firework-3">
+          {[...Array(30)].map((_, i) => (
+            <div key={i} className="particle particle-large" style={{ '--angle': `${i * 12}deg`, '--delay': `${i * 0.015}s` }}></div>
+          ))}
+          {[...Array(20)].map((_, i) => (
+            <div key={`small-${i}`} className="particle particle-small" style={{ '--angle': `${i * 18}deg`, '--delay': `${i * 0.02}s` }}></div>
+          ))}
+          {[...Array(8)].map((_, i) => (
+            <div key={`sparkle-${i}`} className="sparkle" style={{ '--angle': `${i * 45}deg`, '--delay': `${0.3 + i * 0.05}s` }}></div>
+          ))}
+        </div>
+        <div className="firework firework-4">
+          {[...Array(30)].map((_, i) => (
+            <div key={i} className="particle particle-large" style={{ '--angle': `${i * 12}deg`, '--delay': `${i * 0.015}s` }}></div>
+          ))}
+          {[...Array(20)].map((_, i) => (
+            <div key={`small-${i}`} className="particle particle-small" style={{ '--angle': `${i * 18}deg`, '--delay': `${i * 0.02}s` }}></div>
+          ))}
+          {[...Array(8)].map((_, i) => (
+            <div key={`sparkle-${i}`} className="sparkle" style={{ '--angle': `${i * 45}deg`, '--delay': `${0.3 + i * 0.05}s` }}></div>
+          ))}
+        </div>
+        <div className="firework firework-5">
+          {[...Array(30)].map((_, i) => (
+            <div key={i} className="particle particle-large" style={{ '--angle': `${i * 12}deg`, '--delay': `${i * 0.015}s` }}></div>
+          ))}
+          {[...Array(20)].map((_, i) => (
+            <div key={`small-${i}`} className="particle particle-small" style={{ '--angle': `${i * 18}deg`, '--delay': `${i * 0.02}s` }}></div>
+          ))}
+          {[...Array(8)].map((_, i) => (
+            <div key={`sparkle-${i}`} className="sparkle" style={{ '--angle': `${i * 45}deg`, '--delay': `${0.3 + i * 0.05}s` }}></div>
+          ))}
+        </div>
+      </div>
+      
+      {/* Pháo hoa nền liên tục */}
+      <div className="background-fireworks">
+        <div className="bg-firework bg-firework-1"></div>
+        <div className="bg-firework bg-firework-2"></div>
+        <div className="bg-firework bg-firework-3"></div>
+        <div className="bg-firework bg-firework-4"></div>
+        <div className="bg-firework bg-firework-5"></div>
+        <div className="bg-firework bg-firework-6"></div>
+      </div>
+
       <div className="container">
         <div className="header">
           <div className="couple-images">
@@ -127,7 +196,7 @@ function App() {
                   <img 
                     src={link.icon} 
                     alt={link.title}
-                    className="link-icon-image"
+                    className={`link-icon-image ${link.id === 2 ? 'flip-90' : ''}`}
                   />
                 ) : (
                   <span className="link-emoji">{link.emoji}</span>
